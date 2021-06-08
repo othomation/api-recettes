@@ -20,7 +20,7 @@ import {
   IsAValidStep,
   IsAValideStudentName,
   IsAValidIngredient,
-} from './recette.validator';
+} from './recipe.validator';
 import { Student } from './student.entity';
 
 export class Etape {
@@ -29,7 +29,7 @@ export class Etape {
   numero: number;
 }
 @Entity()
-export class Recette {
+export class Recipe {
   @ObjectIdColumn() id: ObjectID;
 
   @CreateDateColumn({ type: 'timestamp' })
@@ -98,11 +98,11 @@ export class Recette {
   ingredients: Array<string>;
 
   @Column()
-  @ApiProperty({example: [...Object.keys(Student)].join(' | ')})
+  @ApiProperty({ example: [...Object.keys(Student)].join(' | ') })
   @IsAValideStudentName()
   eleve_code: string;
 
-  constructor(recette?: Partial<Recette>) {
-    Object.assign(this, recette);
+  constructor(recipe?: Partial<Recipe>) {
+    Object.assign(this, recipe);
   }
 }

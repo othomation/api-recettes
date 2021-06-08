@@ -1,6 +1,6 @@
 ## Description
 
-API 'animals' for create, modify, delete and view animals.
+API 'recettes' for create, modify, delete and view recipes.
 
 ## What is used here ?
 

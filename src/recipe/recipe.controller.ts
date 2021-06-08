@@ -10,8 +10,8 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { RecetteService } from './recette.service';
-import { Recette } from './recette.entity';
+import { RecipeService } from './recipe.service';
+import { Recipe } from './recipe.entity';
 import { Crud } from '@nestjsx/crud';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MongoRepository } from 'typeorm';
@@ -25,12 +25,12 @@ import {
 } from '@nestjs/swagger';
 
 @ApiBearerAuth()
-@ApiTags('recettes')
-@Controller('recettes')
+@ApiTags('recipes')
+@Controller('recipes')
 export class RecetteController {
   constructor(
-    @InjectRepository(Recette)
-    private readonly recettesRepository: MongoRepository<Recette>,
+    @InjectRepository(Recipe)
+    private readonly recipesRepository: MongoRepository<Recipe>,
   ) {}
 
   @Get()
@@ -39,11 +39,11 @@ export class RecetteController {
   })
   @ApiResponse({
     description: 'Recettes',
-    type: Recette,
+    type: Recipe,
     isArray: true,
   })
-  async getRecettes(): Promise<Recette[]> {
-    return await this.recettesRepository.find();
+  async getRecipes(): Promise<Recipe[]> {
+    return await this.recipesRepository.find();
   }
 
   @Get('custom/:eleve_code')
@@ -57,14 +57,14 @@ export class RecetteController {
   })
   @ApiResponse({
     description: 'Recettes',
-    type: Recette,
+    type: Recipe,
     isArray: true,
   })
-  async getRecettesByEleveCode(
+  async getRecipesByEleveCode(
     @Param('eleve_code') eleve_code,
-  ): Promise<Recette[]> {
-    return await (await this.recettesRepository.find()).filter(
-      (recette) => recette.eleve_code === eleve_code,
+  ): Promise<Recipe[]> {
+    return await (await this.recipesRepository.find()).filter(
+      (recipe) => recipe.eleve_code === eleve_code,
     );
   }
 
@@ -75,21 +75,20 @@ export class RecetteController {
     description: 'ID de la recette.',
   })
   @ApiOperation({ summary: 'Récuperer une recette par son ID.' })
-  async getRecette(@Param('id') id): Promise<Recette> {
-    const recette =
-      ObjectID.isValid(id) && (await this.recettesRepository.findOne(id));
-    console.log(recette);
-    if (!recette) throw new NotFoundException('Jai pas trouve wsh');
-    return recette;
+  async getRecipe(@Param('id') id): Promise<Recipe> {
+    const recipe =
+      ObjectID.isValid(id) && (await this.recipesRepository.findOne(id));
+    if (!recipe) throw new NotFoundException('Recette non trouvée');
+    return recipe;
   }
 
   @Post()
   @ApiOperation({ summary: 'Inserer une nouvelle recette' })
-  async createRecette(@Body() recette: Recette): Promise<Recette> {
-    if (!recette || !recette.nom) {
+  async createRecette(@Body() recipe: Recipe): Promise<Recipe> {
+    if (!recipe || !recipe.nom) {
       throw new BadRequestException('Le document envoyé est incorred.');
     }
-    return await this.recettesRepository.save(new Recette(recette));
+    return await this.recipesRepository.save(new Recipe(recipe));
   }
 
   @Put(':id')
@@ -102,13 +101,13 @@ export class RecetteController {
   @HttpCode(204)
   async updateRecette(
     @Param('id') id,
-    @Body() recette: Recette,
-  ): Promise<Recette> {
+    @Body() recipe: Recipe,
+  ): Promise<Recipe> {
     const isValid =
-      ObjectID.isValid(id) && (await this.recettesRepository.findOne(id));
+      ObjectID.isValid(id) && (await this.recipesRepository.findOne(id));
     if (!isValid) throw new NotFoundException();
-    await this.recettesRepository.update(id, recette);
-    return await this.recettesRepository.findOne(id);
+    await this.recipesRepository.update(id, recipe);
+    return await this.recipesRepository.findOne(id);
   }
 
   @Delete(':id')
@@ -121,9 +120,9 @@ export class RecetteController {
   @HttpCode(204)
   async deleteRecette(@Param('id') id): Promise<void | { success: boolean }> {
     const isValid =
-      ObjectID.isValid(id) && (await this.recettesRepository.findOne(id));
+      ObjectID.isValid(id) && (await this.recipesRepository.findOne(id));
     if (!isValid) throw new NotFoundException();
-    await this.recettesRepository.delete(id);
+    await this.recipesRepository.delete(id);
     return { success: true };
   }
 }
