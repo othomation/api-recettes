@@ -12,6 +12,8 @@ NestJS, TypeORM, MySQL. (also Swagger)
 $ npm install
 ```
 
+- Please fill the mongoDB crendtials in an `.env` file. Follow `example.env` example.
+
 ## Running the app
 
 ```bash
