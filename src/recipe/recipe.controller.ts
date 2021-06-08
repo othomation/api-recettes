@@ -25,8 +25,8 @@ import {
 } from '@nestjs/swagger';
 
 @ApiBearerAuth()
-@ApiTags('recipes')
-@Controller('recipes')
+@ApiTags('API-recettes')
+@Controller('recettes')
 export class RecetteController {
   constructor(
     @InjectRepository(Recipe)
