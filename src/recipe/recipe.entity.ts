@@ -78,7 +78,7 @@ export class Recipe {
       "Les differents indicateurs de temps, dififculte etc.. d'une recette ! ",
   })
   @Column()
-  indicators: IIndicators;
+  indicateurs: IIndicators;
 
   @ApiProperty({
     example: ["four", "poele", "talent (c'est une blague le talent svp)"],
@@ -93,7 +93,7 @@ export class Recipe {
     description: "Oui ou non selon que cette recette est dans vos favoris.",
   })
   @Column()
-  favori: boolean;
+  favoris: boolean;
 
   @ApiProperty({
     example: 2,
@@ -132,10 +132,11 @@ export class Recipe {
       { nom: "farine", quantite: 100, obligatoire: true, unite: "gr" },
       { nom: "lait", quantite: 1, obligatoire: true, unite: "l" },
     ],
+    isArray: true,
     description:
       "Une liste des différents ingrédients du plat, sous forme d'objet chacun.",
   })
-  @Column()
+  @Column({default: []})
   @IsAValidIngredient()
   @IsArray()
   ingredients: IIngredient[];
