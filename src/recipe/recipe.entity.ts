@@ -135,7 +135,7 @@ export class Recipe {
     description:
       "Une liste des différents ingrédients du plat, sous forme d'objet chacun.",
   })
-  @Column()
+  @Column({default: []})
   @IsAValidIngredient()
   @IsArray()
   ingredients: IIngredient[];
