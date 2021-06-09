@@ -43,7 +43,7 @@ export function IsAValidDifficulte(ValidationOptions?: ValidationOptions) {
           return value >= 0 && value < 6;
         },
         defaultMessage(message: ValidationArguments) {
-          return message + 'La difficulté doit être un nombre entier et se situer entre 0 (inclus) et 5 (inclus).';
+          return message.property + ' : ' + message.value + ' ===>' + 'La difficulté doit être un nombre entier et se situer entre 0 (inclus) et 5 (inclus).';
         },
       },
     });
