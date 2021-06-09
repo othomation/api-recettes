@@ -101,7 +101,7 @@ export function IsAValidIngredient(ValidationOptions?: ValidationOptions) {
               typeof val.nom === "string" &&
               val.quantite &&
               typeof val.quantite === "number" &&
-              typeof val.obligatoire === "boolean" && val.unite in ['gr','kg','ml','cl','l'];
+              typeof val.obligatoire === "boolean" &&  (typeof val.unite === 'string' || typeof val.unite === 'number')/* val.unite in ['gr','kg','ml','cl','l'] */;
            });
           return isValid;
         },
