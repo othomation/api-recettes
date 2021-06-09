@@ -1,11 +1,11 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
   IsNumber,
   IsOptional,
   IsString,
   IsUrl,
-} from "class-validator";
+} from 'class-validator';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -14,39 +14,39 @@ import {
   UpdateDateColumn,
   ObjectIdColumn,
   ObjectID,
-} from "typeorm";
+} from 'typeorm';
 import {
   IsAValidDifficulte,
   IsAValidStep,
   IsAValideStudentName,
   IsAValidIngredient,
-} from "./recipe.validator";
+} from './recipe.validator';
 
-import { Student } from "./student.entity";
+import { Student } from './student.entity';
 
-import IIngredient from "./models/ingredient.model";
-import IMaterial from "./models/material.model";
-import IRange from "./models/range.model";
-import IStep from "./models/step.model";
-import IUnit from "./models/unit.model";
-import IIndicators from "./models/indicators.model";
+import IIngredient from './models/ingredient.model';
+import IMaterial from './models/material.model';
+import IRange from './models/range.model';
+import IStep from './models/step.model';
+import IUnit from './models/unit.model';
+import IIndicators from './models/indicators.model';
 
 @Entity()
 export class Recipe {
   @ObjectIdColumn() id: ObjectID;
 
-  @CreateDateColumn({ type: "timestamp" })
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @UpdateDateColumn({ type: "timestamp" })
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
   /**
    * nom
    */
-  @ApiProperty({ example: "Chebakiya", description: "Le nom du plat." })
+  @ApiProperty({ example: 'Chebakiya', description: 'Le nom du plat.' })
   @Column()
-  @IsString({ message: "Le nom doit être une chaîne de caractère." })
+  @IsString({ message: 'Le nom doit être une chaîne de caractère.' })
   nom: string;
 
   /**
@@ -54,12 +54,12 @@ export class Recipe {
    */
   @ApiProperty({
     example:
-      "https://i.pinimg.com/originals/4a/d6/04/4ad6041e7a4aa1084155c7a349090c37.gif",
+      'https://i.pinimg.com/originals/4a/d6/04/4ad6041e7a4aa1084155c7a349090c37.gif',
     description: "Une url pointant vers l'image du plat.",
   })
   @Column({
     default:
-      "https://i.pinimg.com/originals/4a/d6/04/4ad6041e7a4aa1084155c7a349090c37.gif",
+      'https://i.pinimg.com/originals/4a/d6/04/4ad6041e7a4aa1084155c7a349090c37.gif',
   })
   @IsUrl()
   @IsOptional()
@@ -81,16 +81,19 @@ export class Recipe {
   indicateurs: IIndicators;
 
   @ApiProperty({
-    example: ["four", "poele", "talent (c'est une blague le talent svp)"],
+    example: [
+      { nom: 'Moule à tarte', quantite: 1, obligatoire: true },
+      { nom: 'Four', quantite: 1, obligatoire: false },
+    ],
     description:
-      "La liste des matériaux nécessaires. Comme un four ! Pensez aux étudiant(e)s...",
+      'La liste des matériaux nécessaires. Comme un four ! Pensez aux étudiant(e)s...',
   })
   @Column()
   materiel: IMaterial[];
 
   @ApiProperty({
     example: true,
-    description: "Oui ou non selon que cette recette est dans vos favoris.",
+    description: 'Oui ou non selon que cette recette est dans vos favoris.',
   })
   @Column()
   favoris: boolean;
@@ -98,9 +101,8 @@ export class Recipe {
   @ApiProperty({
     example: 2,
     description:
-      "Le niveau estimé de difficulte du plat entre 1(inclus) et 6(inclus).",
+      'Le niveau estimé de difficulte du plat entre 1(inclus) et 6(inclus).',
   })
-
   @Column()
   @IsAValidDifficulte()
   difficulte: IRange.OneToFive;
@@ -119,30 +121,30 @@ export class Recipe {
         numero: 2,
         obligatoire: false,
         description:
-          "Woaw cette recette est si rapide, je peux déjà la déguster",
+          'Woaw cette recette est si rapide, je peux déjà la déguster',
       },
     ],
     isArray: true,
-    description: "Un tableau des étapes de la recette.",
+    description: 'Un tableau des étapes de la recette.',
   })
   etapes: IStep[];
 
   @ApiProperty({
     example: [
-      { nom: "farine", quantite: 100, obligatoire: true, unite: "gr" },
-      { nom: "lait", quantite: 1, obligatoire: true, unite: "l" },
+      { nom: 'farine', quantite: 100, obligatoire: true, unite: 'gr' },
+      { nom: 'lait', quantite: 1, obligatoire: true, unite: 'l' },
     ],
     isArray: true,
     description:
       "Une liste des différents ingrédients du plat, sous forme d'objet chacun.",
   })
-  @Column({default: []})
+  @Column({ default: [] })
   @IsAValidIngredient()
   @IsArray()
   ingredients: IIngredient[];
 
   @Column()
-  @ApiProperty({ example: [...Object.keys(Student)].join(" | ") })
+  @ApiProperty({ example: [...Object.keys(Student)].join(' | ') })
   @IsAValideStudentName()
   eleve_code: string;
 
