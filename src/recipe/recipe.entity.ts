@@ -68,7 +68,7 @@ export class Recipe {
   @ApiProperty({
     example: {
       temps_preparation: 20,
-      temps_vaiselle: 10,
+      temps_vaisselle: 10,
       temps_cuisson: 40,
       difficulte: 2,
       nombre_personnes: 4,
