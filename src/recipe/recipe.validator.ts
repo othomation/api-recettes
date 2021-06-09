@@ -40,6 +40,7 @@ export function IsAValidDifficulte(ValidationOptions?: ValidationOptions) {
       options: ValidationOptions,
       validator: {
         validate(value: any, args: ValidationArguments) {
+          console.log(value)
           return value >= 0 && value < 6;
         },
         defaultMessage(message: ValidationArguments) {
