@@ -4,7 +4,7 @@ API 'recettes' for create, modify, delete and view recipes.
 
 ## What is used here ?
 
-NestJS, TypeORM, MySQL. (also Swagger)
+NestJS, TypeORM, MongoDB. (also Swagger)
 
 ## Installation
 
