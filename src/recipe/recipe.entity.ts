@@ -98,14 +98,14 @@ export class Recipe {
   @Column()
   favoris: boolean;
 
-  @ApiProperty({
-    example: 2,
-    description:
-      'Le niveau estimé de difficulte du plat entre 0(inclus) et 5(inclus).',
-  })
-  @Column()
-  @IsAValidDifficulte()
-  difficulte: IRange.OneToFive | number;
+  // @ApiProperty({
+  //   example: 2,
+  //   description:
+  //     'Le niveau estimé de difficulte du plat entre 0(inclus) et 5(inclus).',
+  // })
+  // @Column()
+  // @IsAValidDifficulte()
+  // difficulte: IRange.OneToFive | number;
 
   @Column({ default: [] })
   @IsAValidStep()
