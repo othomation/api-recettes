@@ -132,6 +132,7 @@ export class Recipe {
       { nom: "farine", quantite: 100, obligatoire: true, unite: "gr" },
       { nom: "lait", quantite: 1, obligatoire: true, unite: "l" },
     ],
+    isArray: true,
     description:
       "Une liste des différents ingrédients du plat, sous forme d'objet chacun.",
   })
