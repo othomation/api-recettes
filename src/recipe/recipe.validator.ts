@@ -21,7 +21,10 @@ export function IsAValideStudentName(ValidationOptions?: ValidationOptions) {
         defaultMessage(message: ValidationArguments) {
           let msg = [...Object.keys(Student)].join(' | ');
           return (
-            "Merci d'utiliser votre prenom, afin que chacun(e) puisse utiliser ses propres recettes de son côté s'iel le souhaite. --  " +
+            message.property +
+            ' : ' +
+            message.value +
+            " ==>Merci d'utiliser votre prenom, afin que chacun(e) puisse utiliser ses propres recettes de son côté s'iel le souhaite. --  " +
             msg
           );
         },
@@ -40,11 +43,17 @@ export function IsAValidDifficulte(ValidationOptions?: ValidationOptions) {
       options: ValidationOptions,
       validator: {
         validate(value: any, args: ValidationArguments) {
-          console.log(value)
+          console.log(value);
           return value >= 0 && value < 6;
         },
         defaultMessage(message: ValidationArguments) {
-          return message.property + ' : ' + message.value + ' ===>' + 'La difficulté doit être un nombre entier et se situer entre 0 (inclus) et 5 (inclus).';
+          return (
+            message.property +
+            ' : ' +
+            message.value +
+            ' ===>' +
+            'La difficulté doit être un nombre entier et se situer entre 0 (inclus) et 5 (inclus).'
+          );
         },
       },
     });
@@ -65,7 +74,14 @@ export function IsAValidStep(ValidationOptions?: ValidationOptions) {
           return Array.isArray(value);
         },
         defaultMessage(message: ValidationArguments) {
-          return message + '[etapes] A priori, il manquait soit le titre, soit la description, soit le numero, soit plusieurs ou toutes.';
+          return (
+            message.property +
+            ' : ' +
+            message.value +
+            ' |> ' +
+            message.constraints +
+            ' -- Avez vous bien enovyer un tableau ?'
+          );
         },
       },
     });
@@ -100,7 +116,10 @@ export function IsAValidIngredient(ValidationOptions?: ValidationOptions) {
           return Array.isArray(value);
         },
         defaultMessage(message: ValidationArguments) {
-          return message + "La propriété ingrédients doit être un tableau d'objets correspondant au schema.";
+          return (
+            message +
+            "La propriété ingrédients doit être un tableau d'objets correspondant au schema."
+          );
         },
       },
     });
