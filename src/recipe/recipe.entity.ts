@@ -89,7 +89,7 @@ export class Recipe {
       'La liste des matériaux nécessaires. Comme un four ! Pensez aux étudiant(e)s...',
   })
   @Column()
-  materiel: IMaterial[];
+  materiels: IMaterial[];
 
   @ApiProperty({
     example: true,
