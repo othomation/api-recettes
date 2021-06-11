@@ -98,7 +98,7 @@ export class RecetteController {
     description: 'ID de la recette',
   })
   @ApiOperation({ summary: 'Modifier une recette existante par son ID.' })
-  @HttpCode(204)
+  @HttpCode(200)
   async updateRecette(
     @Param('id') id,
     @Body() recipe: Recipe,
